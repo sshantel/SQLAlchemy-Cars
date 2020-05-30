@@ -50,22 +50,26 @@ q3 = Model.query.filter('year' > '1960').all()
 
 # Get all brands that were founded after 1920.
 q4 = None
+q4 = Brand.query.filter('founded' > '1920').all()
 
 # Get all models with names that begin with ``Cor``.
 q5 = None
+q5 = Model.query.filter(Model.name.like('Cor%')).all()
 
 # Get all brands that were founded in 1903 and that are not yet discontinued.
 q6 = None
+q6 = Brand.query.filter(Brand.founded == 1903, Brand.discontinued == None).all()
 
 # Get all brands that are either 1) discontinued (at any time) or 2) founded
 # before 1950.
 q7 = None
+q7 = Brand.query.filter( db.or_(Brand.discontinued != None, Brand.founded < 1950) ).all()
 
 # Get all models whose brand_id is not ``for``.
 q8 = None
+q8 = Model.query.filter( db.not_(Model.brand_id.in_(['for'])) ).all()
 
-
-
+q8 = Model.query.filter( ~ Model.brand_id.in_(['for']) ).all()
 # -------------------------------------------------------------------
 # Part 4: Write Functions
 
