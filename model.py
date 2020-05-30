@@ -16,14 +16,14 @@ class Brand(db.Model):
     """Car brand."""
     __tablename__ = "brands"
 
-    brand_id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    brand_id = db.Column(db.String(5), primary_key = True)
     name = db.Column(db.String(50), nullable = False)
     founded = db.Column(db.Integer)
     headquarters = db.Column(db.String(50))
     discontinued = db.Column(db.Integer)
 
     def __repr__(self):
-        return f'<brand = {self.brand._id} name = {self.name} founded = {self.founded}, headquarters = {self.headquarters} discontinued = {self.discontinued}>'
+        return f'<brand = {self.brand_id} name = {self.name} founded = {self.founded}, headquarters = {self.headquarters} discontinued = {self.discontinued}>'
 
 
 class Model(db.Model):
@@ -37,7 +37,7 @@ class Model(db.Model):
     name = db.Column(db.String(50), nullable = False)
 
     def __repr__(self):
-        return f'<Model model_id = {self.model._id} year = {self.year} brand_id = {self.brand_id}, name = {self.name}>'
+        return f'<Model model_id = {self.model_id} year = {self.year} brand_id = {self.brand_id}, name = {self.name}>'
 
 
 # End Part 1

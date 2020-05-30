@@ -37,14 +37,16 @@ init_app()
 
 
 # Get the brand with the brand_id of ``ram``.
-q1 = None
-q1 = Brand.query.get('ram')
+
+q1 = Brand.query.filter_by(brand_id='ram').all()
 
 # Get all models with the name ``Corvette`` and the brand_id ``che``.
-q2 = None
 
+q2 = Model.query.filter_by(name='Corvette',brand_id='che').all()
 # Get all models that are older than 1960.
+
 q3 = None
+q3 = Model.query.filter('year' > '1960').all()
 
 # Get all brands that were founded after 1920.
 q4 = None
