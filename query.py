@@ -112,7 +112,9 @@ def search_brands_by_name(mystr):
     """Returns all Brand objects corresponding to brands whose names include
     the given string."""
 
-    Brands.query.filter(Brand.name.like(%mystr%)).all()
+    brands_by_name = Brand.query.filter(Brand.name.ilike('%'+mystr+'%')).all()
+
+    return brands_by_name
 
 
 def get_models_between(start_year, end_year):
