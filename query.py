@@ -58,12 +58,14 @@ q5 = Model.query.filter(Model.name.like('Cor%')).all()
 
 # Get all brands that were founded in 1903 and that are not yet discontinued.
 q6 = None
-q6 = Brand.query.filter(Brand.founded == 1903, Brand.discontinued == None).all()
+q6 = Brand.query.filter(Brand.founded == 1903, 
+                        Brand.discontinued == None).all()
 
 # Get all brands that are either 1) discontinued (at any time) or 2) founded
 # before 1950.
 q7 = None
-q7 = Brand.query.filter( db.or_(Brand.discontinued != None, Brand.founded < 1950) ).all()
+q7 = Brand.query.filter( db.or_(Brand.discontinued != None, 
+                                Brand.founded < 1950) ).all()
 
 # Get all models whose brand_id is not ``for``.
 q8 = None
@@ -78,21 +80,39 @@ def get_model_info(year):
     """Takes in a year and prints out each model name, brand name, and brand
     headquarters for that year using only ONE database query."""
 
-    pass
+    models = Model.query.filter_by(year=year).all()
 
+    print("\n\n ---------- {year} --------".format(year=year))
+
+    if models:
+        for model in models:
+            print(f'{brand.name} {model.brand.name} {model.brand.headquarters}')
+        print()
+    else:
+        print("No models from that year in the database\n")
 
 def get_brands_summary():
     """Prints out each brand name (once) and all of that brand's models,
     including their year, using only ONE database query."""
 
-    pass
+    all_brands = Brand.query.all()
+
+    for brand in all_brands:
+        print("{brand}".format(brand=brand.name))
+        if brand.models:
+            for model in brand.models:
+                print("  {year} {model}".format(year=model.year,
+                                                model=model.name))
+        else:
+            print("  None\n")
+    print()
 
 
 def search_brands_by_name(mystr):
     """Returns all Brand objects corresponding to brands whose names include
     the given string."""
 
-    pass
+    Brands.query.filter(Brand.name.like(%mystr%)).all()
 
 
 def get_models_between(start_year, end_year):
